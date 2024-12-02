@@ -8,26 +8,37 @@ Selecionar a estrutura ideal para consultas SQL pode acelerar seu processo de an
 
 **Exemplo:**
 ```sql
-SELECT nome, preco FROM produtos WHERE categoria = 'Eletrônicos';
+SELECT nome, preco 
+FROM produtos 
+WHERE categoria = 'Eletrônicos';
 ```
-
-## 2. Subquery
-Quando usar: Necessidade de interações com múltiplas tabelas ou para extrair dados relacionados.
-Dica: Subqueries permitem encapsular consultas complexas.
-Exemplo:
+**Ou:**
 ```sql
 SELECT nome, preco 
 FROM produtos 
-WHERE id_categoria IN (
-    SELECT id 
-    FROM categorias 
-    WHERE descricao = 'Promoção'
+WHERE datavenda >= '2024-01-01';
+```
+
+## 2. Subquery
+- **Quando usar:** Necessidade de interações com múltiplas tabelas ou para extrair dados relacionados.
+- **Dica:** Subqueries permitem encapsular consultas complexas.
+  
+**Exemplo:**
+```sql
+SELECT nome, preco 
+    FROM produtos 
+    WHERE id_categoria IN (
+        SELECT id 
+        FROM categorias 
+        WHERE descricao = 'Promoção'
 );
 ```
+
 ## 3. CTE (Common Table Expressions)
-Quando usar: Consultas complexas e você quer manter a legibilidade.
-Dica: Ideal para dividir consultas em etapas claras.
-Exemplo:
+- **Quando usar:** Consultas complexas e você quer manter a legibilidade.
+- **Dica:** Ideal para dividir consultas em etapas claras.
+
+**Exemplo:**
 ```sql
 WITH ProdutosPromocao AS (
     SELECT id, nome, preco 
@@ -37,16 +48,17 @@ WITH ProdutosPromocao AS (
 SELECT * FROM ProdutosPromocao;
 ```
 ## 4. TempView
-Quando usar: Análises temporárias sem alterar o esquema principal.
-Dica: TempViews são úteis para análises dentro da sessão atual.
-Exemplo:
+- **Quando usar:** Análises temporárias sem alterar o esquema principal.
+- **Dica:* TempViews são úteis para análises dentro da sessão atual.
+  
+**Exemplo:**
 ```sql
 CREATE TEMP VIEW ProdutosRecentes AS
 SELECT * FROM produtos WHERE data_criacao > '2024-01-01';
 ```
 ## 5. View
-Quando usar: Relatórios ou dashboards com acessos frequentes e permissões específicas.
-Dica: Views permitem definir regras de acesso a dados.
+- **Quando usar:** Relatórios ou dashboards com acessos frequentes e permissões específicas.
+- **Dica:** Views permitem definir regras de acesso a dados.
 Exemplo:
 ```sql
 CREATE VIEW ProdutosDisponiveis AS
